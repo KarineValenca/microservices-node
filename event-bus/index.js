@@ -13,9 +13,9 @@ app.post('/events', async (req, res) => {
     events.push(event)
 
     await axios.post('http://posts-clusterip-svc:4000/events', event)
-    //await axios.post('http://localhost:4001/events', event)
-    //await axios.post('http://localhost:4002/events', event)
-    //await axios.post('http://localhost:4003/events', event)
+    await axios.post('http://comments-svc:4001/events', event)
+    await axios.post('http://query-svc:4002/events', event)
+    await axios.post('http://moderation-svc:4003/events', event)
 
     res.send({ status: 'OK'})
 })
