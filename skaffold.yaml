@@ -1,0 +1,58 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: valencakarine/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+    - image: valencakarine/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: valencakarine/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: valencakarine/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: valencakarine/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: valencakarine/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: '*.js'
+            dest: .
